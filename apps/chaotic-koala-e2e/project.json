@@ -1,0 +1,10 @@
+{
+  "name": "chaotic-koala-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/chaotic-koala-e2e/src",
+  "tags": [],
+  "implicitDependencies": ["chaotic-koala"],
+  "// targets": "to see all targets run: nx show project chaotic-koala-e2e --web",
+  "targets": {}
+}

@@ -1,0 +1,9 @@
+{
+  "name": "chaotic-koala",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/chaotic-koala",
+  "projectType": "application",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project chaotic-koala --web",
+  "targets": {}
+}
