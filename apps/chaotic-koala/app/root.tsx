@@ -1,3 +1,8 @@
+import { FeatureLib1 } from '@chaotic-koala/feature-lib1';
+import { FeatureLib2 } from '@chaotic-koala/feature-lib2';
+import { FeatureLib3 } from '@chaotic-koala/feature-lib3';
+import { FeatureLib4 } from '@chaotic-koala/feature-lib4';
+import { FeatureLib5 } from '@chaotic-koala/feature-lib5';
 import type { MetaFunction } from '@remix-run/node';
 import {
   Links,
@@ -28,6 +33,11 @@ export default function App() {
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
+        <FeatureLib1 />
+        <FeatureLib2 />
+        <FeatureLib3 />
+        <FeatureLib4 />
+        <FeatureLib5 />
       </body>
     </html>
   );

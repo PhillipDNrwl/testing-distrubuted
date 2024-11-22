@@ -14,7 +14,18 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@chaotic-koala/feature-lib1": ["libs/feature-lib1/src/index.ts"],
+      "@chaotic-koala/feature-lib2": ["libs/feature-lib2/src/index.ts"],
+      "@chaotic-koala/feature-lib3": ["libs/feature-lib3/src/index.ts"],
+      "@chaotic-koala/feature-lib4": ["libs/feature-lib4/src/index.ts"],
+      "@chaotic-koala/feature-lib5": ["libs/feature-lib5/src/index.ts"],
+      "@chaotic-koala/ui-lib1": ["libs/ui-lib1/src/index.ts"],
+      "@chaotic-koala/ui-lib2": ["libs/ui-lib2/src/index.ts"],
+      "@chaotic-koala/ui-lib3": ["libs/ui-lib3/src/index.ts"],
+      "@chaotic-koala/ui-lib4": ["libs/ui-lib4/src/index.ts"],
+      "@chaotic-koala/ui-lib5": ["libs/ui-lib5/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

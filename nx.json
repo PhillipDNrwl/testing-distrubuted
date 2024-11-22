@@ -33,8 +33,18 @@
         "typecheckTargetName": "typecheck"
       }
     },
-    { "plugin": "@nx/eslint/plugin", "options": { "targetName": "lint" } },
-    { "plugin": "@nx/playwright/plugin", "options": { "targetName": "e2e" } }
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "lint"
+      }
+    },
+    {
+      "plugin": "@nx/playwright/plugin",
+      "options": {
+        "targetName": "e2e"
+      }
+    }
   ],
   "targetDefaults": {
     "@nx/remix:build": {
@@ -42,8 +52,17 @@
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"]
     },
-    "e2e-ci--**/*": { "dependsOn": ["^build"] }
+    "e2e-ci--**/*": {
+      "dependsOn": ["^build"]
+    }
   },
   "nxCloudId": "671187ed871141f35a7045f8",
-  "nxCloudUrl": "https://staging.nx.app"
+  "nxCloudUrl": "https://staging.nx.app",
+  "generators": {
+    "@nx/react": {
+      "library": {
+        "unitTestRunner": "vitest"
+      }
+    }
+  }
 }
