@@ -4,6 +4,8 @@ import { UiLib3 } from '@chaotic-koala/ui-lib3';
 import { UiLib4 } from '@chaotic-koala/ui-lib4';
 import { UiLib5 } from '@chaotic-koala/ui-lib5';
 import styles from './feature-lib2.module.css';
+import { UiLib6 } from '@chaotic-koala/libs/ui-lib6';
+import { UiLib7 } from '@chaotic-koala/libs/ui-lib7';
 
 export function FeatureLib2() {
   return (
@@ -14,6 +16,8 @@ export function FeatureLib2() {
       <UiLib3 />
       <UiLib4 />
       <UiLib5 />
+      <UiLib6 />
+      <UiLib7 />
     </div>
   );
 }
