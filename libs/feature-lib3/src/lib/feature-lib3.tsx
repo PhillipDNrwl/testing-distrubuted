@@ -8,7 +8,7 @@ import styles from './feature-lib3.module.css';
 export function FeatureLib3() {
   return (
     <div className={styles['container']}>
-      <h1>Welcome to FeatureLib3!</h1>
+      <h2>Welcome to FeatureLib3!</h2>
       <UiLib1 />
       <UiLib2 />
       <UiLib3 />
