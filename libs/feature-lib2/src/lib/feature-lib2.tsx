@@ -10,7 +10,7 @@ import { UiLib7 } from '@chaotic-koala/libs/ui-lib7';
 export function FeatureLib2() {
   return (
     <div className={styles['container']}>
-      <h1>Welcome to FeatureLib2!</h1>
+      <h2>Welcome to FeatureLib2!</h2>
       <UiLib1 />
       <UiLib2 />
       <UiLib3 />

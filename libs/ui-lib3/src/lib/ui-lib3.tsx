@@ -3,7 +3,7 @@ import styles from './ui-lib3.module.css';
 export function UiLib3() {
   return (
     <div className={styles['container']}>
-      <h1>Welcome to UiLib3!</h1>
+      <h3>UI lib 3</h3>
     </div>
   );
 }
