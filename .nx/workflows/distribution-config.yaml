@@ -1,0 +1,8 @@
+distribute-on:
+  default: 3 linux-small-js, 2 linux-large-js
+
+assignment-rules:
+  - project: chaotic-koala-e2e
+    target: e2e-ci
+    runs-on:
+      - linux-large-js
