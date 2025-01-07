@@ -1,0 +1,20 @@
+distribute-on:
+  small-changeset: 3 linux-medium-js, 2 linux-large-js
+  medium-changeset: 6 linux-medium-js, 4 linux-large-js
+  large-changeset: 10 linux-medium-js, 8 linux-large-js
+
+assignment-rules:
+  - project: chaotic-koala
+    target: build
+    configuration: staging
+    runs-on:
+      - linux-large-js
+
+  - target: lint
+    runs-on:
+      - linux-medium-js
+
+  - configuration: development
+    runs-on:
+      - linux-medium-js
+      - linux-large-js
