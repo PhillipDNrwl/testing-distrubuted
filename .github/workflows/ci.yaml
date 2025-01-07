@@ -29,6 +29,29 @@ jobs:
       - run: npm ci --legacy-peer-deps
 
       - uses: nrwl/nx-set-shas@v4
+      # Specify assignment rules
+      - run: |
+          echo "Setting assignment rules..."
+          npx nx-cloud set-assignment-rules \
+            --rules='[
+              {
+                "project": "chaotic-koala",
+                "runsOn": ["linux-medium-js", "linux-large-js"]
+              },
+              {
+                "target": "lint",
+                "configuration": "production",
+                "runsOn": ["linux-large-js"]
+              },
+              {
+                "project": "lib1",
+                "target": "test",
+                "runsOn": ["linux-medium-js"]
+              }
+            ]'
 
+      # Run affected targets
+      - run: npx nx-cloud record -- nx format:check
+      - run: npx nx affected -t lint test build e2e-ci --configuration=staging
       - run: npx nx-cloud record -- nx format:check
       - run: npx nx affected -t lint test build e2e-ci
