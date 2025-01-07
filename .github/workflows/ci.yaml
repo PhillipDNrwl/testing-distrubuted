@@ -3,13 +3,11 @@ name: CI
 on:
   push:
     branches:
-      # Trigger workflow on the nx-stage branch
       - main
   pull_request:
     branches:
       - main
 
-# Needed for nx-set-shas when run on the nx-stage branch
 permissions:
   actions: read
   contents: read
@@ -27,49 +25,12 @@ jobs:
           node-version: 20
           cache: 'npm'
 
-      # Enable distribution with specific configurations
+      # Reference the distribution configuration file
       - run: |
           npx nx-cloud start-ci-run \
-            --distribute-on="3 linux-small-js, 2 linux-medium-js, 1 linux-large-js" \
-            --stop-agents-after="e2e-ci"
+            --distribute-on=".nx/workflows/distribution-config.yaml"
 
       - run: npm ci --legacy-peer-deps
-
-      - uses: nrwl/nx-set-shas@v4
-
-      # Specify distribute-on and assignment rules
-      - run: |
-          echo "Setting distribute-on and assignment rules..."
-          cat <<EOF > nx-cloud.config.json
-          {
-            "distribute-on": {
-              "default": "3 linux-small-js, 2 linux-medium-js, 1 linux-large-js"
-            },
-            "assignment-rules": [
-              {
-                "project": "chaotic-koala",
-                "runs-on": [
-                  "linux-medium-js",
-                  "linux-large-js"
-                ]
-              },
-              {
-                "target": "lint",
-                "configuration": "staging",
-                "runs-on": [
-                  "linux-large-js"
-                ]
-              },
-              {
-                "project": "lib1",
-                "target": "test",
-                "runs-on": [
-                  "linux-medium-js"
-                ]
-              }
-            ]
-          }
-          EOF
 
       # Run affected targets
       - run: npx nx-cloud record -- nx format:check
