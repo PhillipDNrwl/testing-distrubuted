@@ -37,30 +37,39 @@ jobs:
 
       - uses: nrwl/nx-set-shas@v4
 
-      # Specify assignment rules
+      # Specify distribute-on and assignment rules
       - run: |
-          echo "Setting assignment rules for testing in nx-stage..."
-          npx nx-cloud set-assignment-rules \
-            --rules='[
+          echo "Setting distribute-on and assignment rules..."
+          cat <<EOF > nx-cloud.config.json
+          {
+            "distribute-on": {
+              "default": "3 linux-small-js, 2 linux-medium-js, 1 linux-large-js"
+            },
+            "assignment-rules": [
               {
                 "project": "chaotic-koala",
-                "target": "build",
-                "configuration": "staging",
-                "runsOn": ["linux-medium-js", "linux-large-js"]
+                "runs-on": [
+                  "linux-medium-js",
+                  "linux-large-js"
+                ]
               },
               {
-                "project": "chaotic-koala",
                 "target": "lint",
                 "configuration": "staging",
-                "runsOn": ["linux-large-js"]
+                "runs-on": [
+                  "linux-large-js"
+                ]
               },
               {
                 "project": "lib1",
                 "target": "test",
-                "configuration": "staging",
-                "runsOn": ["linux-medium-js"]
+                "runs-on": [
+                  "linux-medium-js"
+                ]
               }
-            ]'
+            ]
+          }
+          EOF
 
       # Run affected targets
       - run: npx nx-cloud record -- nx format:check
