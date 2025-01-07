@@ -13,7 +13,7 @@ assignment-rules:
       - linux-medium-js
 
   - configuration: development
-    runs-on
+    runs-on:
       - linux-1a
       - linux-2
       - linux-3
