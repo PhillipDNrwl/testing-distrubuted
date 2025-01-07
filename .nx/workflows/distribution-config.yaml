@@ -1,5 +1,8 @@
 distribute-on:
-  default: 10 linux-medium-js, 5 linux-large-js, 1 linux-1
+  default: 
+    - linux-medium-js: 10
+    - linux-large-js: 5
+    - linux-1: 1
 
 assignment-rules:
   - project: chaotic-koala
@@ -13,7 +16,7 @@ assignment-rules:
       - linux-medium-js
 
   - configuration: development
-    runs-on
+    runs-on:
       - linux-1
       - linux-2
       - linux-3
