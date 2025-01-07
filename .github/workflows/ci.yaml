@@ -1,12 +1,15 @@
 name: CI
+
 on:
   push:
     branches:
-      # Change this if your primary branch is not main
+      # Trigger workflow on the nx-stage branch
       - main
   pull_request:
+    branches:
+      - main
 
-# Needed for nx-set-shas when run on the main branch
+# Needed for nx-set-shas when run on the nx-stage branch
 permissions:
   actions: read
   contents: read
@@ -18,34 +21,43 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
       - uses: actions/setup-node@v3
         with:
           node-version: 20
           cache: 'npm'
-      # This line enables distribution
-      # The "--stop-agents-after" is optional, but allows idle agents to shut down once the "e2e-ci" targets have been requested
-      # - run: npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js" --stop-agents-after="e2e-ci"
-      - run: npx nx-cloud start-ci-run --distribute-on=".nx/workflows/distribution-config.yaml" --stop-agents-after="e2e-ci"
+
+      # Enable distribution with specific configurations
+      - run: |
+          npx nx-cloud start-ci-run \
+            --distribute-on="3 linux-small-js, 2 linux-medium-js, 1 linux-large-js" \
+            --stop-agents-after="e2e-ci"
+
       - run: npm ci --legacy-peer-deps
 
       - uses: nrwl/nx-set-shas@v4
+
       # Specify assignment rules
       - run: |
-          echo "Setting assignment rules..."
+          echo "Setting assignment rules for testing in nx-stage..."
           npx nx-cloud set-assignment-rules \
             --rules='[
               {
                 "project": "chaotic-koala",
+                "target": "build",
+                "configuration": "staging",
                 "runsOn": ["linux-medium-js", "linux-large-js"]
               },
               {
+                "project": "chaotic-koala",
                 "target": "lint",
-                "configuration": "production",
+                "configuration": "staging",
                 "runsOn": ["linux-large-js"]
               },
               {
                 "project": "lib1",
                 "target": "test",
+                "configuration": "staging",
                 "runsOn": ["linux-medium-js"]
               }
             ]'
@@ -53,5 +65,3 @@ jobs:
       # Run affected targets
       - run: npx nx-cloud record -- nx format:check
       - run: npx nx affected -t lint test build e2e-ci --configuration=staging
-      - run: npx nx-cloud record -- nx format:check
-      - run: npx nx affected -t lint test build e2e-ci
