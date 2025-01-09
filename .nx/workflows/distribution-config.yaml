@@ -1,5 +1,5 @@
 assignment-rules:
-  # Rule with lower priority
+
   - project: chaotic-koala
     target: build
     configuration: staging
@@ -7,7 +7,6 @@ assignment-rules:
       - linux-large-js
     priority: 0
 
-  # Overlapping rule with higher priority
   - project: chaotic-koala
     target: build
     configuration: staging
@@ -15,7 +14,6 @@ assignment-rules:
       - linux-medium
     priority: 1
 
-  # Another overlapping rule without a priority field (should default to lower precedence)
   - project: chaotic-koala
     target: build
     configuration: staging
