@@ -14,23 +14,20 @@ permissions:
 
 jobs:
   main:
+    name: Main Job
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 20
-          cache: 'npm'
+      - name: Install Dependencies
+        run: npm ci --legacy-peer-deps
 
-      # Reference the distribution configuration file
-      - run: |
-      # - run: npx nx-cloud start-ci-run --distribute-on=".nx/workflows/distribution-config.yaml" --stop-agents-after="build"
-      - run: npx nx-cloud start-ci-run --assignment-rules=.nx/workflows/distribution-config.yaml --stop-agents-after="build"
-      - run: npm ci --legacy-peer-deps
+      - name: Start CI Run
+        run: npx nx-cloud start-ci-run --assignment-rules=".nx/workflows/distribution-config.yaml" --stop-agents-after="e2e-ci"
 
-      # Run affected targets
-      - run: npx nx-cloud record -- nx format:check
-      - run: npx nx affected -t lint test build e2e-ci --configuration=staging
+      - name: Run Format Check
+        run: npx nx-cloud record -- nx format:check
+
+      - name: Run Affected Targets
+        run: npx nx affected -t lint test build e2e-ci --configuration=staging
