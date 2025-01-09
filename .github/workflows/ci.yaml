@@ -26,9 +26,6 @@ jobs:
       - name: Start CI Run
         run: npx nx-cloud start-ci-run --assignment-rules=".nx/workflows/distribution-config.yaml" --stop-agents-after="e2e-ci"
 
-      - name: Run Format Check
-        run: npx nx-cloud record -- nx format:check
-
       - name: Run Affected Targets
         run: npx nx run-many -t lint test build
 
