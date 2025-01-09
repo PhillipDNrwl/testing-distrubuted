@@ -15,16 +15,20 @@ permissions:
 jobs:
   main:
     name: Main Job
-    ...
+    runs-on: ubuntu-latest # Added a runner for this job
     steps:
-      ...
-      - run: npx nx-cloud start-ci-run --assignment-rules=".nx/workflows/distribution-config.yaml" --stop-agents-after="e2e-ci"
-      - ..
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Start CI Run
+        run: npx nx-cloud start-ci-run --assignment-rules=".nx/workflows/distribution-config.yaml" --stop-agents-after="e2e-ci"
 
   medium-agents:
-    name: Agents ${{ matrix.agent }}
-    runs-on:
-      group: medium-agents
+    name: Medium Agents ${{ matrix.agent }}
+    runs-on: ubuntu-latest # Specify a runner for the agents
     strategy:
       matrix:
         agent: [1, 2, 3]
@@ -32,36 +36,30 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: npm ci
-
-      ...
 
       - name: Start Agent ${{ matrix.agent }}
         run: npx nx-cloud start-agent
         env:
           NX_AGENT_NAME: ${{ matrix.agent }}
-          NX_AGENT_LAUNCH_TEMPLATE: "linux-medium" # This value needs to match one of the 'runs-on' values defined in the assignment rules
+          NX_AGENT_LAUNCH_TEMPLATE: linux-medium # Matching the assignment rules
 
   large-agents:
-    name: Agents ${{ matrix.agent }}
-    runs-on:
-      group: large-agents
+    name: Large Agents ${{ matrix.agent }}
+    runs-on: ubuntu-latest # Specify a runner for the agents
     strategy:
       matrix:
         agent: [1, 2, 3]
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: npm ci
-
-      ... # other setup steps
 
       - name: Start Agent ${{ matrix.agent }}
         run: npx nx-cloud start-agent
         env:
           NX_AGENT_NAME: ${{ matrix.agent }}
-          NX_AGENT_LAUNCH_TEMPLATE: "linux-large" # This value needs to match one of the 'runs-on' values defined in the assignment rules
+          NX_AGENT_LAUNCH_TEMPLATE: linux-large # Matching the assignment rules
