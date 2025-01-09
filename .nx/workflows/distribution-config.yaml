@@ -13,6 +13,3 @@ assignment-rules:
     runs-on:
       - linux-1
       - linux-2
-      - linux-3
-      - linux-medium-js
-      - linux-large-js
