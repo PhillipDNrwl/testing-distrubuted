@@ -1,31 +1,13 @@
 assignment-rules:
-  # Original Rules
+  # Rule with lower priority
   - project: chaotic-koala
     target: build
     configuration: staging
     runs-on:
       - linux-large-js
+    priority: 0
 
-  - target: lint
-    runs-on:
-      - linux-medium-js
-
-  - configuration: development
-    runs-on:
-      - linux-medium
-
-  # Test Rule with Invalid Target
-  - target: unknown-task
-    runs-on:
-      - linux-unknown
-
-  # Overlapping Rules
-  - project: chaotic-koala
-    target: build
-    configuration: staging
-    runs-on:
-      - linux-large-js
-
+  # Overlapping rule with higher priority
   - project: chaotic-koala
     target: build
     configuration: staging
@@ -33,7 +15,9 @@ assignment-rules:
       - linux-medium
     priority: 1
 
-  # Invalid Runs-On Value
-  - target: build
+  # Another overlapping rule without a priority field (should default to lower precedence)
+  - project: chaotic-koala
+    target: build
+    configuration: staging
     runs-on:
-      - invalid-runner
+      - linux-small
