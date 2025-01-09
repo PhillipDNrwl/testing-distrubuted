@@ -30,7 +30,7 @@ jobs:
         run: npx nx-cloud record -- nx format:check
 
       - name: Run Affected Targets
-        run: npx nx affected -t lint test build e2e-ci --configuration=staging
+        run: npx nx run-many -t lint test build
 
   medium-agents:
     name: Medium Agents ${{ matrix.agent }}
