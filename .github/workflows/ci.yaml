@@ -1,23 +1,21 @@
-pre-checks:
-    name: Pre-Checks
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+name: CI
 
-      - name: Install Dependencies
-        run: npm ci --legacy-peer-deps
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
-      - name: Run Format Check
-        run: npx nx-cloud record -- nx format:check
+permissions:
+  actions: read
+  contents: read
 
-      - name: Run Affected Targets
-        run: npx nx affected -t lint test build e2e-ci --configuration=staging
-
+jobs:
   main:
     name: Main Job
     runs-on: ubuntu-latest
-    needs: pre-checks 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -27,3 +25,9 @@ pre-checks:
 
       - name: Start CI Run
         run: npx nx-cloud start-ci-run --assignment-rules=".nx/workflows/distribution-config.yaml" --stop-agents-after="e2e-ci"
+
+      - name: Run Format Check
+        run: npx nx-cloud record -- nx format:check
+
+      - name: Run Affected Targets
+        run: npx nx affected -t lint test build e2e-ci --configuration=staging
