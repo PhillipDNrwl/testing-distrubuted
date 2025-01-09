@@ -27,7 +27,6 @@ jobs:
 
       # Reference the distribution configuration file
       - run: |
-      # - run: npx nx-cloud start-ci-run --distribute-on=".nx/workflows/distribution-config.yaml" --stop-agents-after="build"
       - run: npx nx-cloud start-ci-run --assignment-rules=.nx/workflows/distribution-config.yaml --stop-agents-after="build"
       - run: npm ci --legacy-peer-deps
 

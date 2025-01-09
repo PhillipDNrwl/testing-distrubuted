@@ -1,6 +1,3 @@
-distribute-on:
-  default: 10 linux-medium-js, 5 linux-large-js, 1 linux-1
-
 assignment-rules:
   - project: chaotic-koala
     target: build
