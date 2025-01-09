@@ -31,3 +31,41 @@ jobs:
 
       - name: Run Affected Targets
         run: npx nx affected -t lint test build e2e-ci --configuration=staging
+
+  medium-agents:
+    name: Medium Agents ${{ matrix.agent }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        agent: [1, 2]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Start Agent ${{ matrix.agent }}
+        run: npx nx-cloud start-agent
+        env:
+          NX_AGENT_NAME: ${{ matrix.agent }}
+          NX_AGENT_LAUNCH_TEMPLATE: linux-medium
+
+  large-agents:
+    name: Large Agents ${{ matrix.agent }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        agent: [1, 2]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Start Agent ${{ matrix.agent }}
+        run: npx nx-cloud start-agent
+        env:
+          NX_AGENT_NAME: ${{ matrix.agent }}
+          NX_AGENT_LAUNCH_TEMPLATE: linux-large
