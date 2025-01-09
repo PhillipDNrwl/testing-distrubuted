@@ -24,7 +24,7 @@ jobs:
         run: npm ci --legacy-peer-deps
 
       - name: Start CI Run
-        run: npx nx-cloud start-ci-run --assignment-rules=".nx/workflows/distribution-config.yaml" --stop-agents-after="e2e-ci"
+        run: npx nx-cloud start-ci-run --assignment-rules=".nx/workflows/distribution-config.yaml" --stop-agents-after="e2e-ci" --distribute-on="manual"
 
       - name: Debug Assignment Rules
         run: cat .nx/workflows/distribution-config.yaml
