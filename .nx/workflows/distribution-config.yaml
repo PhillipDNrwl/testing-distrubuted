@@ -6,22 +6,13 @@ assignment-rules:
     runs-on:
       - linux-large-js
 
-  - target: lint
+  - target: unknown-task
     runs-on:
-      - linux-medium-js
+      - linux-unknown
 
   - configuration: development
     runs-on:
       - linux-1
       - linux-2
 
-  - target: unknown-task
-    runs-on:
-      - linux-unknown
-
-  - project: chaotic-koala
-    target: build
-    configuration: staging
-    runs-on:
-      - linux-large-js
 
