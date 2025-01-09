@@ -5,17 +5,23 @@ assignment-rules:
     configuration: staging
     runs-on:
       - linux-large-js
-    priority: 0
+
+  - target: lint
+    runs-on:
+      - linux-medium-js
+
+  - configuration: development
+    runs-on:
+      - linux-1
+      - linux-2
+
+  - target: unknown-task
+    runs-on:
+      - linux-unknown
 
   - project: chaotic-koala
     target: build
     configuration: staging
     runs-on:
-      - linux-medium
-    priority: 1
+      - linux-large-js
 
-  - project: chaotic-koala
-    target: build
-    configuration: staging
-    runs-on:
-      - linux-small
